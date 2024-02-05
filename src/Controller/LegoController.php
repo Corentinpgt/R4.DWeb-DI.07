@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use stdClass;
 use App\Entity\Lego as Lego;
+use App\Service\CreditsGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -84,10 +85,23 @@ class LegoController extends AbstractController
     // }
 
 
-    #[Route('/{collection}', 'filter_by_collection')]
+    #[Route('/{collection}', 'filter_by_collection', requirements: ['collection' => 'Creator|Star Wars|Creator Expert'])]
     public function filter($collection): Response
     {
-        die($collection);
+        $coll = [];
+        foreach ($this->legos as $lego) {
+            if ($lego->collection == $collection) {array_push($coll,$lego);}
+        }
+
+        return $this->render("lego.html.twig", [
+            'legos' => $coll,
+        ]);
+    }
+
+    #[Route('/credits', 'credits')]
+    public function credits(CreditsGenerator $credits): Response
+    {
+        return new Response($credits->getCredits());
     }
 
 
