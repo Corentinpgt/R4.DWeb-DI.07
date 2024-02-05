@@ -11,6 +11,7 @@ namespace App\Controller;
 use stdClass;
 use App\Entity\Lego as Lego;
 use App\Service\CreditsGenerator;
+use App\Service\DatabaseInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,29 +20,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class LegoController extends AbstractController
 {
    private $legos = [];
-
-   
-   function __construct() {
-        $file = file_get_contents('/var/www/html/src/data.json');
-        $file = json_decode($file);
-        foreach ($file as $lego) {
-            $leg = new Lego($lego->id, $lego->name, $lego->collection);
-            $leg->setDescription($lego->description);
-            $leg->setPrice($lego->price);
-            $leg->setPieces($lego->pieces);
-            $leg->setBoxImage($lego->images->box);
-            $leg->setLegoImage($lego->images->bg);
-            array_push($this->legos, $leg);
-        }
-   }
-
+    
 
 
     #[Route('/', )]
-    public function homeAll(): Response
+    public function homeAll(DatabaseInterface $lego): Response
     {  
         return $this->render("lego.html.twig", [
-            'legos' => $this->legos,
+            'legos' => $lego->getAllLegos(),
         ]);
     }
     
@@ -86,15 +72,13 @@ class LegoController extends AbstractController
 
 
     #[Route('/{collection}', 'filter_by_collection', requirements: ['collection' => 'Creator|Star Wars|Creator Expert'])]
-    public function filter($collection): Response
+    public function filter($collection, DatabaseInterface $lego): Response
     {
-        $coll = [];
-        foreach ($this->legos as $lego) {
-            if ($lego->collection == $collection) {array_push($coll,$lego);}
-        }
+
+        $collection = str_replace("% %", )
 
         return $this->render("lego.html.twig", [
-            'legos' => $coll,
+            'legos' => $lego->getLegosByCollection($collection),
         ]);
     }
 
