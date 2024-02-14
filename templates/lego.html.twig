@@ -3,7 +3,17 @@
 
 {% extends "base.html.twig" %}
 {% block body %}
+<nav>
+    <a href="/">All</a> |
+    
+    {% for coll in collection %}
+    <a href="/{{coll}}">{{coll}}</a> |
+    {% endfor %}
+
+</nav>
 {% for lego in legos %}
+
+
 
 <div class="lego_card">
       <div class="info_section">

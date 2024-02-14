@@ -19,15 +19,19 @@ use Symfony\Component\Routing\Attribute\Route;
 /* le nom de la classe doit être cohérent avec le nom du fichier */
 class LegoController extends AbstractController
 {
-   private $legos = [];
     
+    public $coll;
 
 
     #[Route('/', )]
     public function homeAll(DatabaseInterface $lego): Response
     {  
+
+        $this->coll = $lego->getAllCollection();
+        // dump($this->coll);
         return $this->render("lego.html.twig", [
             'legos' => $lego->getAllLegos(),
+            'collection' =>$lego->getAllCollection(),
         ]);
     }
     
@@ -71,14 +75,14 @@ class LegoController extends AbstractController
     // }
 
 
-    #[Route('/{collection}', 'filter_by_collection', requirements: ['collection' => 'Creator|Star Wars|Creator Expert'])]
+    #[Route('/{collection}', 'filter_by_collection', requirements: ['collection' => 'Creator|Star Wars|Creator Expert|Harry Potter'])]
     public function filter($collection, DatabaseInterface $lego): Response
     {
 
-        $collection = str_replace("% %", )
 
         return $this->render("lego.html.twig", [
             'legos' => $lego->getLegosByCollection($collection),
+            'collection' =>$lego->getAllCollection()
         ]);
     }
 
