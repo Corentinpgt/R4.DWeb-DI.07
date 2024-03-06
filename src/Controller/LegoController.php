@@ -12,6 +12,7 @@ use stdClass;
 use App\Entity\Lego as Lego;
 use App\Service\CreditsGenerator;
 use App\Service\DatabaseInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -91,6 +92,23 @@ class LegoController extends AbstractController
     {
         return new Response($credits->getCredits());
     }
+
+    #[Route('/test', 'test')]
+    public function test(EntityManagerInterface $entityManager): Response
+    {
+        $l = new Lego(1234);
+        $l->setName("un beau Lego");
+        $l->setCollection("Lego espace");
+        $l->setPrice(32.00);
+        $l->setPieces(122);
+        $l->setDescription("Lego espace");
+        $l->setLegoImage("Lego espace");
+        $l->setBoxImage("Lego espace");
+        $entityManager->persist($l);
+        $entityManager->flush();
+        dd($l);
+    }
+
 
 
 
