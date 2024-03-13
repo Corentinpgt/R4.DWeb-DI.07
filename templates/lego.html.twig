@@ -4,10 +4,14 @@
 {% extends "base.html.twig" %}
 {% block body %}
 <nav>
-    <a href="/">All</a> |
+    <a href="/">All</a> 
+    {# <a href="/Creator">Creator</a> |
+    <a href="/Creator_Expert">Creator Expert</a> |
+    <a href="/Star_Wars">Star Wars</a> |
+    <a href="/Harry_Potter">Harry Potter</a>  #}
     
     {% for coll in collection %}
-    <a href="/{{coll.collection}}">{{coll.collection}}</a> |
+    | <a href="/{{coll.name}}">{{coll.name}}</a>
     {% endfor %}
 
 </nav>
@@ -20,7 +24,7 @@
         <div class="lego_header">
           <img class="locandina" src="/images/{{lego.boxImage}}"/>
           <h1>{{lego.name}}</h1>
-          <h4>Collection : {{lego.collection}}</h4>
+          <h4>Collection : {{lego.collection.name}}</h4>
           <span class="pieces">Pièces : {{lego.pieces}}</span>
           <p class="price">{{lego.price}}€</p><br>
           <a href="index.php?buy={{lego.id}}"><button>Buy</button></a>
