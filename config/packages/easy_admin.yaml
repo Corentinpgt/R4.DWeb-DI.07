@@ -1,0 +1,20 @@
+easy_admin:
+    entities:
+        Lego:
+            class: App\Entity\Lego
+            label: Legos
+            # Personnalisation des champs à afficher dans la liste des Lego
+            list:
+                fields:
+                    - name
+                    - collection
+                    - price
+                    - pieces
+                    # Ajoutez d'autres champs Lego au besoin
+            # Personnalisation des champs à afficher lors de l'édition d'un Lego
+            edit:
+                fields:
+                    - name
+                    - collection
+                    - price
+                    - pieces
