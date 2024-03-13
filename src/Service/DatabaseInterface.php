@@ -20,8 +20,8 @@ class DatabaseInterface
             $leg->setDescription($lego->description);
             $leg->setPrice($lego->price);
             $leg->setPieces($lego->pieces);
-            $leg->setBoxImage($lego->imagebox);
-            $leg->setLegoImage($lego->imagebg);
+            $leg->setBoxImage($lego->box_image);
+            $leg->setLegoImage($lego->lego_image);
             array_push($return, $leg);
         }
         return $return;
@@ -38,8 +38,8 @@ class DatabaseInterface
             $leg->setDescription($lego->description);
             $leg->setPrice($lego->price);
             $leg->setPieces($lego->pieces);
-            $leg->setBoxImage($lego->imagebox);
-            $leg->setLegoImage($lego->imagebg);
+            $leg->setBoxImage($lego->box_image);
+            $leg->setLegoImage($lego->lego_image);
             array_push($return, $leg);
         }
         return $return;
